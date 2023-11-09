@@ -1,0 +1,151 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+
+
+<div class="d-flex justify-content-end  ">
+<a routerLink="" class="" ><button class="btn bi bi-power bg-danger">logout</button></a>
+</div>
+<div class="container" *ngIf="isatmPin">
+    <div class="border text-center">
+        <form accept="#" class="form-control" (ngSubmit)="pinCheck();isatmPin=false">
+        <label class="form-label " style="width: 230px;">Enter ATM 4 digit Pin Number</label><input type="number" required minlength="4" maxlength="4" name="atmpin" [(ngModel)]="atmPin" placeholder="Enter 0000 for First time"><br>
+        <input type="submit" class="btn bg-dark-subtle">
+        </form>
+    </div>
+</div>
+<div class="container-fluid" *ngIf="!isAccount">
+    <div class="border p-2 m-4">
+        <div class="" >
+            <form action="#" (ngSubmit)="customerLogin();isAccount=true">
+                <label class="form-label m-2" style="width: 230px;">Enter Your account number</label><input type="number" name="accnumber" required [(ngModel)]="accountNumber"><br>
+                <label class="form-label m-2" style="width: 230px;">Ente your  name</label><input type="text" name="name" required [(ngModel)]="custName"><br>
+                <button class="mx-5 btn bg-dark-subtle">submit</button><button class="mx-5 btn bg-dark-subtle" type="reset" >reset</button>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+
+<!-- OPERATION BUTTONS -->
+<div class="container-fluid  text-center " style="margin-left: 150px;" *ngIf="login" >
+    <div class="border w-75 mx-5 " >
+        <div class="text-center m-5 "><h1>WELCOME {{custName}}</h1></div>
+   
+    <div class="m-5 w-auto">
+        <div class="">
+            <div class="row w-75 mx-5">
+                <div class="col ">
+                    <div>
+                        <button class="btn bg-dark-subtle my-5" (click)="displayData =displayData2 = displayData !== 'changePin' ? 'changePin' : null ">Change Pin</button>
+                    </div>
+                    <div>
+                        <button class="btn bg-dark-subtle my-5" (click)="displayData = displayData2 =displayData !== 'changeMobile' ? 'changeMobile' : null">Chang Mobile</button>
+                    </div>
+                    <div>
+                        <button class="btn bg-dark-subtle my-5" (click)="displayData2 =displayData= displayData2 !== 'transferAmount' ? 'transferAmount' : null;positiveMessage='';errorMessage=''; ">TRANSFER MONEY</button>
+                    </div>
+                </div>
+                
+                <div class="col">
+                    <div>
+                        <button class="btn bg-dark-subtle my-5" (click)="displayData = displayData2 =displayData !== 'checkBalance' ? 'checkBalance' : null;positiveMessage='' ; errorMessage=''">Check Balance</button>
+                    </div>
+                    <div>
+                        <button class="btn bg-dark-subtle my-5" (click)="displayData = displayData2 =displayData !== 'withdraw' ? 'withdraw' : null">With Draw</button>
+                    </div>
+                    <div>
+                        <button class="btn bg-dark-subtle my-5" (click)="displayData = displayData2 =displayData !== 'deposit' ? 'deposit' : null">Deposit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!-- ------------------------------------------------------------------------------------------------------------------------------------------ -->
+
+<!-- DEPOSIT AMOUNT -->
+<div class="container m-5" *ngIf="displayData==='deposit'">
+    <div class="text-center">
+      <label class="form-label" style="font-size: large;"> Enter Deposit Amount <input type="number" name="amount" [(ngModel)]="amount" ></label><br>
+       <button class="btn bg-dark-subtle" (click)="DepositAmount();displayData=null">Deposit</button>
+    </div>
+</div>
+<!-- ------------------------------------------------------------------------------------------------------------------------------------------ -->
+
+<!-- WITHDRAW AMOUNT -->
+<div class="container m-5" *ngIf="displayData==='withdraw'">
+    <div class="text-center">
+     <label class="form-label" style="font-size: large;"> Enter WithDraw Amount <input type="number"  name="amount" [(ngModel)]="amount"></label><br>
+     <button class="btn bg-dark-subtle" (click)="WithDrawAmount();displayData=null">WithDraw</button>
+    </div>
+   
+</div>
+<!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
+
+<!-- ATM PIN CHANGE -->
+<div class="container" *ngIf="displayData==='changePin'">
+    <div class="form-control">
+        <div class="form-label">Eneter Old Pin</div><input type="number" autocomplete="off" name="oldpin" [(ngModel)]="oldPin" >
+        <div class="form-label">Enter New Pin</div><input type="number" autocomplete="off" name="new pin" [(ngModel)]="newPin">
+        <button class="btn bg-dark-subtle" (click)="changePin();displayData=null" >Submit</button>
+    </div>
+</div>
+<!-- ----------------------------------------------------------------------------------------------------------------------------------------- -->
+
+<!-- MOBILE NUMBER CHANGE -->
+<div class="container text-center" *ngIf="displayData==='changeMobile'" >
+<div class="form-control">
+<form action="#" (ngSubmit)="changeMobile($event);displayData=''">
+<label class="form-label">Enter new Mobile Number</label>
+<div>
+<input class="" type="number" name="mobileNumber">
+<input type="submit" class="btn btn-dark">
+</div>
+</form>
+</div>
+</div>
+<!-- ----------------------------------------------------------------------------------------------------------------------------------------- -->
+
+<!-- TRANSFER MONEY -->
+<div class="container " *ngIf="displayData2==='transferAmount'">
+    <div class="text-center">
+    <form action="#" (ngSubmit)="transferMoney($event);displayData2=''" >
+        <div><label>Enter creted account mobile number</label></div>
+        <div><input type="number" name="mobileNumber"></div>
+        <div><label>Enter amount</label></div>
+        <div><input type="number" name="transferamount"></div>
+       <div> <input type="submit" class="btn bg-dark-subtle"></div>
+    </form>
+</div>
+</div>
+<!-- ----------------------------------------------------------------------------------------------------------------------------------------- -->
+
+<!-- MESSAGES DISPLAY -->
+
+
+<div class=" mx-4 p-5" *ngIf="errorMessage!=='' ">
+<div class="text-danger text-center">
+<p>{{errorMessage}}</p>
+</div>
+</div>
+<div class=" m-5" *ngIf="displayData==='checkBalance'">
+<div class="text-center">
+    <div *ngIf="customer.balance!==null">
+   <p>Your Balance is {{customer.balance}}</p>
+    </div>
+    <div *ngIf="customer.balance==null">
+        <p>your balance is 0</p>
+    </div>
+</div>
+</div>
+<div class=" m-5" *ngIf="positiveMessage!==''">
+    <div class="text-center">
+        <p>{{positiveMessage}}</p>
+    </div>
+</div>
+   
+
+
