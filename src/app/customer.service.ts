@@ -9,7 +9,8 @@ import { Address } from './address';
 })
 export class CustomerService {
 
-  private basePath:string="http://192.168.29.58:8081/";
+  private basePath:string="http://54.81.227.186:8081/";
+
   constructor(private http:HttpClient) { }
 
   saveCustomer(customer:Customer,address:Address):Observable<any>{
