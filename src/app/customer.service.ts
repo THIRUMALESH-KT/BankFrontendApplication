@@ -9,7 +9,7 @@ import { Address } from './address';
 })
 export class CustomerService {
 
-  private basePath:string="http://54.81.227.186:8081/";
+  private basePath:string="https://www.thiruweb.in/";
 
   constructor(private http:HttpClient) { }
 
